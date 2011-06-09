@@ -20,6 +20,7 @@ build/
 dist/
 
 # buildout
+setup.py
 .installed*.cfg
 .cache/
 eggs/
@@ -27,6 +28,8 @@ develop-eggs/
 parts/
 build/
 dist/
+src/infi/exceptools/__version__.py
+src/infi.exceptools.egg-info/
 
 # scm
 .bzr/
