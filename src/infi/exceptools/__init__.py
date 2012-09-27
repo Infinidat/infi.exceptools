@@ -118,6 +118,16 @@ format_tb = traceback.format_tb
 print_stack = traceback.print_stack
 print_tb = traceback.print_tb
 
+def exceptools_decorator(func):
+    from infi.pyutils.contexts import wraps
+    import mock
+    @wraps(func)
+    def callee(*args, **kwargs):
+        with mock.patch("traceback.format_exception") as patched_format_exception:
+            patched_format_exception.side_effect = format_exception
+            return func(*args, **kwargs)
+    return callee
+
 if __name__ == '__main__':
     print("An example of a chained exception printing:\n")
     try:
