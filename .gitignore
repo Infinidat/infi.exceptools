@@ -30,6 +30,7 @@ build/
 dist/
 src/infi/exceptools/__version__.py
 src/infi.exceptools.egg-info/
+bootstrap.py
 
 # scm
 .bzr/
