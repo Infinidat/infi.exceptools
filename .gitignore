@@ -37,3 +37,4 @@ bootstrap.py
 .svn/
 .hg/
 
+.cache
