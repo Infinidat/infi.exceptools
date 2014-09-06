@@ -2,11 +2,14 @@ __import__("pkg_resources").declare_namespace(__name__)
 
 import sys
 import traceback
+import mock
 from StringIO import StringIO
+from infi.pyutils.contexts import contextmanager
+from infi.pyutils.contexts import wraps
 
 __all__ = [ 'InfiException', 'extract_stack', 'extract_tb', 'format_exception', 'format_exception_only', 'format_list',
             'format_stack', 'format_tb', 'print_exc', 'format_exc', 'print_exception', 'print_last', 'print_stack',
-            'print_tb' ]
+            'print_tb', 'exceptools_decorator', 'exceptools_context']
 
 __doc__ = """Exception utils and traceback replacement module.
 
@@ -118,13 +121,17 @@ format_tb = traceback.format_tb
 print_stack = traceback.print_stack
 print_tb = traceback.print_tb
 
+@contextmanager
+def exceptools_context():
+    with mock.patch("traceback.format_exception") as patched_format_exception, mock.patch("traceback.print_exception") as patched_print_exception, mock.patch("traceback.format_exception") as patched_format_exception:
+        patched_format_exception.side_effect = format_exception
+        patched_print_exception.side_effect = print_exception
+        yield
+
 def exceptools_decorator(func):
-    from infi.pyutils.contexts import wraps
-    import mock
     @wraps(func)
     def callee(*args, **kwargs):
-        with mock.patch("traceback.format_exception") as patched_format_exception:
-            patched_format_exception.side_effect = format_exception
+        with exceptools_context():
             return func(*args, **kwargs)
     return callee
 
