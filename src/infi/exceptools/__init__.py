@@ -16,7 +16,7 @@ __all__ = [ 'InfiException', 'extract_stack', 'extract_tb', 'format_exception', 
 
 __doc__ = """Exception utils and traceback replacement module.
 
-This module provides chained exception mechanism (Python 3 style) with formatting and printing facilities like Pytho's
+This module provides chained exception mechanism (Python 3 style) with formatting and printing facilities like Python's
 built-in traceback module.
 
 Except for adding a new method called chain(), this module provides all the methods that exist in traceback and is
@@ -54,7 +54,7 @@ if __name__ == '__main__':
             raise chain(InfiException("wrapper exception"))
     except:
         print_exc()
-    
+
     print("\nAn example of a chained exception printing without the chain:\n")
     try:
         try:
@@ -63,4 +63,4 @@ if __name__ == '__main__':
             raise chain(InfiException("wrapper exception"))
     except:
         print_exc(chain=False)
-    
+
